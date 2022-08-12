@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/stm32/calc/calc.elf verify exit reset\"",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+        }
+    ]
+}
