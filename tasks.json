@@ -2,9 +2,33 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Flash",
+            "label": "FlashCalc",
             "type": "shell",
-            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/stm32/calc/calc.elf verify exit reset\"",
+            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/calc/calc.elf verify exit reset\"",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+        },
+        {
+            "label": "FlashFactoryTest",
+            "type": "shell",
+            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/factory_test/factory-test.elf verify exit reset\"",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+        },
+        {
+            "label": "Flasher",
+            "type": "shell",
+            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/flasher/flasher.elf verify exit reset\"",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+        },
+        {
+            "label": "ReleaseFlash",
+            "type": "shell",
+            "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program build/firmware/calc/calc-full.bin 0x8000000 verify exit reset\"",
             "options": {
                 "cwd": "${workspaceRoot}",
             },

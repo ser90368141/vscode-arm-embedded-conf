@@ -2,13 +2,52 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "openocd",
+			"name": "calc",
 			"type": "cortex-debug",
 			"request": "launch",
 			"cwd": "${workspaceRoot}",
 			"servertype": "openocd",
-			"executable": "./build/firmware/stm32/calc/calc.elf",
-			"svdFile": "firmware/STM32F413.svd",
+			"executable": "./build/firmware/calc/calc.elf",
+			"svdFile": "firmware/stm32/STM32F413.svd",
+			"gdbPath": "arm-none-eabi-gdb",
+			"interface": "swd",
+			"configFiles": [
+				"interface/stlink.cfg",
+				"target/stm32f4x.cfg"
+			],
+			"preRestartCommands": [
+				// "load",
+				"enable breakpoint",
+				"monitor reset halt"
+			],
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"name": "calc-attach",
+			"type": "cortex-debug",
+			"request": "attach",
+			"cwd": "${workspaceRoot}",
+			"servertype": "openocd",
+			"executable": "./build/firmware/calc/calc.elf",
+			"gdbPath": "arm-none-eabi-gdb",
+			"interface": "swd",
+			"svdFile": "firmware/stm32/STM32F413.svd",
+			"configFiles": [
+				"interface/stlink.cfg",
+				"target/stm32f4x.cfg"
+			],
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"name": "test",
+			"type": "cortex-debug",
+			"request": "launch",
+			"cwd": "${workspaceRoot}",
+			"servertype": "openocd",
+			"executable": "./build/firmware/factory_test/factory-test.elf",
+			"svdFile": "firmware/stm32/STM32F413.svd",
+			"gdbPath": "arm-none-eabi-gdb",
+			"interface": "swd",
 			"configFiles": [
 				"interface/stlink.cfg",
 				"target/stm32f4x.cfg"
@@ -18,6 +57,73 @@
 				"enable breakpoint",
 				"monitor reset halt"
 			],
-		}
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"name": "flasher",
+			"type": "cortex-debug",
+			"request": "launch",
+			"cwd": "${workspaceRoot}",
+			"servertype": "openocd",
+			"executable": "./build/firmware/flasher/flasher.elf",
+			"svdFile": "firmware/stm32/STM32F413.svd",
+			"gdbPath": "arm-none-eabi-gdb",
+			"interface": "swd",
+			"configFiles": [
+				"interface/stlink.cfg",
+				"target/stm32f4x.cfg"
+			],
+			"preRestartCommands": [
+				"load",
+				"enable breakpoint",
+				"monitor reset halt"
+			],
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"type": "cortex-debug",
+			"request": "launch",
+			"name": "calc-gd32-debug-jlink",
+			"cwd": "${workspaceRoot}",
+			"executable": "./build/firmware/calc/calc.elf",
+			"servertype": "jlink",
+			"serverpath": "JLinkGDBServerCLExe",
+			"device": "GD32F470ZK",
+			"interface": "swd",
+			"serialNumber": "", //If you have more than one J-Link probe, add the serial number here.
+			"runToMain": true,
+			"armToolchainPath": "/usr/bin/",
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"type": "cortex-debug",
+			"request": "launch",
+			"name": "ftest-gd32-debug-jlink",
+			"cwd": "${workspaceRoot}",
+			"executable": "./build/firmware/factory_test/factory-test.elf",
+			"servertype": "jlink",
+			"serverpath": "JLinkGDBServerCLExe",
+			"device": "GD32F470ZK",
+			"interface": "swd",
+			"serialNumber": "", //If you have more than one J-Link probe, add the serial number here.
+			"runToMain": true,
+			"armToolchainPath": "/usr/bin/",
+			"showDevDebugOutput": "raw"
+		},
+		{
+			"type": "cortex-debug",
+			"request": "launch",
+			"name": "flasher-gd32-debug-jlink",
+			"cwd": "${workspaceRoot}",
+			"executable": "./build/firmware/flasher/flasher.elf",
+			"servertype": "jlink",
+			"serverpath": "JLinkGDBServerCLExe",
+			"device": "GD32F470ZK",
+			"interface": "swd",
+			"serialNumber": "", //If you have more than one J-Link probe, add the serial number here.
+			"runToMain": true,
+			"armToolchainPath": "/usr/bin/",
+			"showDevDebugOutput": "raw"
+		},
 	]
 }
